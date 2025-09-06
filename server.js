@@ -48,19 +48,34 @@ app.use(
 
 
 // session setup
+// app.use(
+//     session({
+//         name: 'sid',
+//         secret: 'change_this_secret_in_prod',
+//         resave: false,
+//         saveUninitialized: false,
+//         cookie: {
+//             httpOnly: true,
+//             maxAge: 1000 * 60 * 60 * 24, // 1 day
+//         },
+// // store: new SQLiteStore({ client: require('better-sqlite3')(path.join(__dirname, 'sessions.db')) })
+//     })
+// );
 app.use(
-    session({
-        name: 'sid',
-        secret: 'change_this_secret_in_prod',
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 24, // 1 day
-        },
-// store: new SQLiteStore({ client: require('better-sqlite3')(path.join(__dirname, 'sessions.db')) })
-    })
+  session({
+    name: "sid",
+    secret: "change_this_secret_in_prod",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: true,         // 🔑 required for HTTPS (Render + Vercel)
+      sameSite: "none",     // 🔑 allows cross-site cookies
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
 );
+
 
 
 app.use('/api/auth', authRoutes);
