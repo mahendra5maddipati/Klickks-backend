@@ -21,23 +21,31 @@ app.use(cookieParser());
 //         credentials: true,
 //     })
 // );
-const allowedOrigins = [
-  "http://localhost:3000",             // local dev
-  "https://klickks-frontend.vercel.app" // deployed frontend
-];
+// const allowedOrigins = [
+//   "http://localhost:3000",             // local dev
+//   "https://klickks-frontend.vercel.app" // deployed frontend
+// ];
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: true, // reflect the request origin but less secure for production
     credentials: true,
   })
 );
+
 
 // session setup
 app.use(
